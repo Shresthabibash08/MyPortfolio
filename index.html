@@ -1,8 +1,626 @@
 <!DOCTYPE html>
-<html>
-    <head> Hello</head>
-    <title>My Portfolio</title>
-    <body>
-        <p>My Name is bibash Shrestha.</p>
-    </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bibash Shrestha — CS & AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F8F7F4;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #6B6B6B;
+    --accent: #3B5BDB;
+    --accent-light: #EEF2FF;
+    --border: rgba(0,0,0,0.08);
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248,247,244,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 100px 2rem; }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.1s;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.25s;
+  }
+
+  .hero-tagline {
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+    line-height: 1.6;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.55s;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--text);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: #333; transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+
+  .btn-outline:hover { border-color: rgba(0,0,0,0.25); transform: translateY(-1px); }
+
+  .hero-scroll {
+    margin-top: 4rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .hero-scroll-line {
+    width: 40px; height: 1px; background: var(--muted);
+  }
+
+  .hero-scroll span {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    color: var(--text);
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .about-stats {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    padding: 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+    border-color: rgba(0,0,0,0.14);
+  }
+
+  .project-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .project-link {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 1rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover { opacity: 1; }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.01em;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+
+  .skill-group-title {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-list {
+    display: flex; flex-direction: column; gap: 6px;
+    list-style: none;
+  }
+
+  .skill-list li {
+    font-size: 14px;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .skill-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-inner {
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .contact-inner .section-title { margin-bottom: 1rem; }
+
+  .contact-sub {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* FADE ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    section { padding: 80px 1.25rem; }
+    nav { padding: 0 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">BS.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Available for opportunities</p>
+    <h1 class="hero-name">Bibash<br>Shrestha.</h1>
+    <p class="hero-tagline">BSc (Hons) Computer Science with Artificial Intelligence — building intelligent systems that solve real-world problems.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View my work →</a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label reveal">About</p>
+    <h2 class="section-title reveal">A little about me</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm Bibash — a Computer Science & AI student passionate about building intelligent, human-centred technology. From machine learning pipelines to full-stack applications, I enjoy tackling problems end-to-end.</p>
+        <p>Currently completing my BSc (Hons) in Computer Science with Artificial Intelligence, I'm always looking for new challenges, collaborations, and opportunities to grow.</p>
+        <p>When I'm not coding, you'll find me exploring the latest AI research, contributing to open-source, or planning my next personal project.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-item">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years studying CS & AI</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Projects built</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Curiosity for learning</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label reveal">Projects</p>
+    <h2 class="section-title reveal">Things I've built</h2>
+
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <h3 class="project-title">AI Image Classifier</h3>
+          <a href="#" class="project-link">GitHub ↗</a>
+        </div>
+        <p class="project-desc">A convolutional neural network trained on custom datasets to classify images with high accuracy. Built with PyTorch and deployed as a REST API.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Deep Learning</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <h3 class="project-title">NLP Sentiment Analyser</h3>
+          <a href="#" class="project-link">GitHub ↗</a>
+        </div>
+        <p class="project-desc">Fine-tuned a BERT-based model to perform sentiment analysis on social media data. Includes a live dashboard for real-time monitoring.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">HuggingFace</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">React</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-header">
+          <h3 class="project-title">Full-Stack Task Manager</h3>
+          <a href="#" class="project-link">Live demo ↗</a>
+        </div>
+        <p class="project-desc">A productivity app with user authentication, real-time updates, and a clean interface. Built to sharpen full-stack skills end-to-end.</p>
+        <div class="project-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">React</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label reveal">Skills</p>
+    <h2 class="section-title reveal">What I work with</h2>
+    <div class="skills-grid">
+
+      <div class="skill-group reveal">
+        <p class="skill-group-title">Languages</p>
+        <ul class="skill-list">
+          <li>Python</li>
+          <li>JavaScript / TypeScript</li>
+          <li>Java</li>
+          <li>SQL</li>
+          <li>HTML / CSS</li>
+        </ul>
+      </div>
+
+      <div class="skill-group reveal">
+        <p class="skill-group-title">AI & Machine Learning</p>
+        <ul class="skill-list">
+          <li>PyTorch / TensorFlow</li>
+          <li>Scikit-learn</li>
+          <li>HuggingFace</li>
+          <li>OpenCV</li>
+          <li>Pandas / NumPy</li>
+        </ul>
+      </div>
+
+      <div class="skill-group reveal">
+        <p class="skill-group-title">Web & Backend</p>
+        <ul class="skill-list">
+          <li>React</li>
+          <li>Node.js / Express</li>
+          <li>FastAPI</li>
+          <li>PostgreSQL / MongoDB</li>
+          <li>REST APIs</li>
+        </ul>
+      </div>
+
+      <div class="skill-group reveal">
+        <p class="skill-group-title">Tools & Platforms</p>
+        <ul class="skill-list">
+          <li>Git / GitHub</li>
+          <li>Docker</li>
+          <li>Linux</li>
+          <li>VS Code</li>
+          <li>Jupyter Notebooks</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <p class="section-label reveal">Contact</p>
+      <h2 class="section-title reveal">Let's work together</h2>
+      <p class="contact-sub reveal">Whether you have a project in mind, an opportunity to share, or just want to say hello — my inbox is always open.</p>
+      <div class="contact-links reveal">
+        <a href="mailto:bibash@example.com" class="btn-primary">Send an email →</a>
+        <a href="https://linkedin.com/in/bibash" target="_blank" class="btn-outline">LinkedIn ↗</a>
+        <a href="https://github.com/bibash" target="_blank" class="btn-outline">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & built by Bibash Shrestha &nbsp;·&nbsp; 2025</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (i * 0.08) + 's';
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
 </html>
